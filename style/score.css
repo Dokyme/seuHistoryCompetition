@@ -1,0 +1,50 @@
+body {
+    background-image: url(../images/000.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1#roof {
+    background-color: DarkSlateGray;
+    font-size: 300%;
+    color: white;
+    width: 102%;
+    position: relative;
+    top: -50px;
+    left: -10px;
+}
+
+h1#score_grade {
+    font-size: 500%;
+    color: red;
+}
+
+div#score_title {
+    position: absolute;
+    top: 180px;
+    left: 30%;
+}
+
+div#score_contain1 {
+    position: absolute;
+    top: 300px;
+    left: 45%;
+}
+
+div#score_score {
+    position: absolute;
+    top: 350px;
+    left: 47.5%;
+}
+
+div#endbutton {
+    position: absolute;
+    top: 550px;
+    left: 42.5%;
+}
+
+div#score_close {
+    position: absolute;
+    top: 650px;
+    left: 47.5%;
+}

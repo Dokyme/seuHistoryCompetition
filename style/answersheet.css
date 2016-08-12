@@ -1,0 +1,50 @@
+body {
+    background-image: url(../images/000.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1#roof {
+    background-color: DarkSlateGray;
+    font-size: 300%;
+    color: white;
+    width: 102%;
+    position: relative;
+    top: -50px;
+    left: -10px;
+}
+
+div.questions {
+   position:relative;
+   left:22%;
+   top:auto;
+}
+
+form{
+	font-size:180%;
+	height:200px;
+	}
+p.question_description{
+	height:20px;
+	}
+input.question_choice{
+	height:18px;
+	width:18px;
+	}
+div#timeri {
+    position: fixed;
+    bottom: 0%;
+    right: 0%;
+}
+
+div#timert {
+    position: fixed;
+    bottom: -2%;
+    right: 4%;
+}
+
+div#submitter {
+    position: fixed;
+    bottom: 7%;
+    right: 0%;
+}

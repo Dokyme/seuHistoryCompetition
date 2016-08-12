@@ -1,0 +1,86 @@
+body {
+    background-image: url(../images/000.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1.welcome {
+    font-size: 400%;
+    color: black;
+}
+
+h1#roof {
+    background-color: DarkSlateGray;
+    font-size: 300%;
+    color: white;
+    width: 102%;
+    position: relative;
+    top: -50px;
+    left: -10px;
+}
+
+input#ID {
+    height: 35px;
+    width: 220px;
+    font-size: 150%;
+    color: white;
+    background-color: #989a94;
+    border: none;
+    position: relative;
+    top: -102px;
+    left: 15px;
+}
+
+input#password {
+    height: 35px;
+    width: 220px;
+    font-size: 150%;
+    color: white;
+    background-color: #989a94;
+    border: none;
+    position: relative;
+    top: -84px;
+    left: 15px;
+}
+
+div#readnotice_welcome {
+    position: absolute;
+    top: 160px;
+    left: 25%;
+}
+
+div#readnotice_title {
+    position: absolute;
+    top: 260px;
+    left: 45%;
+}
+
+div#readnotice_contain1 {
+    position: absolute;
+    top: 400px;
+    left: 30%;
+}
+
+div#readnotice_contain2 {
+    position: absolute;
+    top: 450px;
+    left: 30%;
+}
+
+div#startbutton {
+    position: absolute;
+    top: 650px;
+    left: 40%;
+}
+
+div#downloadbutton {
+    position: absolute;
+    top: 720px;
+    left: 40%;
+}
+
+div#exitbutton {
+    position: absolute;
+    top: 790px;
+    left: 40%;
+}

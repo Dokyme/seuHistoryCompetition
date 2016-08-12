@@ -1,0 +1,78 @@
+body {
+    background-image: url(../images/000.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1#roof {
+    background-color: DarkSlateGray;
+    font-size: 300%;
+    color: white;
+    width: 102%;
+    position: relative;
+    top: -50px;
+    left: -10px;
+}
+
+input{
+    height: 35px;
+    width: 240px;
+    font-size: 150%;
+    color: white;
+    background-color: #989a94;
+    border: none;
+}
+
+div#title {
+    position: absolute;
+    top: 150px;
+    left: 44%;
+}
+
+div#contain1 {
+    position:absolute;
+    top: 280px;
+    right: 47%;
+}
+
+div#contain2 {
+    position: absolute;
+    top: 340px;
+    right: 47%;
+}
+
+div#contain3 {
+    position: absolute;
+    top: 400px;
+	 right: 47%;
+}
+
+div#contain4 {
+    position: absolute;
+    top: 460px;
+	 right: 47%;
+}
+
+div#contain5 {
+    position: absolute;
+    top: 520px;
+    right: 47%;
+}
+
+div#contain6 {
+    position: absolute;
+    top: 580px;
+    right: 47%;
+}
+
+div#contain7 {
+    position: absolute;
+    top: 580px;
+    right: 45%;
+}
+
+div#contain8 {
+    position: absolute;
+    top: 640px;
+    right: 45%;
+}
