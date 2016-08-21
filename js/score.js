@@ -39,6 +39,11 @@ window.onload = function()
                     alert("error");
                     logout()
                 }
+                else if(res.score==-1)
+                {
+                    alert("您尚未答题");
+                    logout()
+                }
                 else
                 {
                     setCookie("score",res.score);

@@ -1,13 +1,13 @@
 <?php
-function generatePaperArray($amount=200,$n=40,$piece=100)
+function generatePaperArray($amount=200,$n=40,$piece=100,$per=20)
 {
-    $c=20*$piece/$amount;
+    $c=$per*$piece/$amount;
     $quotientSet=array();
     $paper=array();
     $finIndex=array();
     $end=0;
 
-    for ($i=0; $i < $n; $i++) { 
+    for ($i=0; $i < $n; $i++) {
         $paper[$i]=array();
     }
 

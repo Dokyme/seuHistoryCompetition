@@ -28,6 +28,16 @@ function redis_json_getList($hRedis,$lName,$id)
     return $res;
 }
 
+function redis_str_getAnswer($hRedis,$lName,$id)
+{
+    $res=$hRedis->lIndex($lName,$id);
+    if(!$res)
+    {
+        return 0;
+    }
+    return $res;
+}
+
 function redis_json_getListAns($hRedis,$id)
 {
     $res=redis_json_getList($hRedis,"multipleChoiceAnswerList",$id);

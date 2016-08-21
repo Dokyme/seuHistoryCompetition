@@ -11,9 +11,15 @@ function mysql_h_connect($admin)
     return $mysql;
 }
 
+function mysql_regexp($index)
+{
+    return "regexp "."'^0*".$index."[0-9A-B]15|16[0-9]{3}$'";
+}
+
 function mysql_get($hMysql,$strTable,$strField,$strWhere)
 {
     $query="select ".$strField." from ".$strTable." where ".$strWhere." ;";
+    //echo $query;
     $res=$hMysql->query($query);
     if(!$res)
     {
@@ -74,7 +80,7 @@ function mysql_obj_getById($hMysql,$strTable,$strField,$id)
     return $res;
 }
 
-function mysql_obj_getMC($hMysql,$id)
+function mysql_obj_getMultipleChoice($hMysql,$id)
 {
     $res=mysql_obj_getById($hMysql,"multipleChoice","id,question_description,choice_a,choice_b,choice_c,choice_d",$id);
     if(!$res)
@@ -84,7 +90,17 @@ function mysql_obj_getMC($hMysql,$id)
     return $res;
 }
 
-function mysql_obj_getMCAns($hMysql,$id)
+function mysql_obj_getJudgement($hMysql,$id)
+{
+    $res=mysql_obj_getById($hMysql,"judgement","id,question_description",$id);
+    if(!$res)
+    {
+        return 0;
+    }
+    return $res;
+}
+
+function mysql_obj_getMultipleChoiceAns($hMysql,$id)
 {
     $res=mysql_obj_getById($hMysql,"multipleChoice","answer",$id);
     if(!$res)
@@ -104,9 +120,29 @@ function mysql_obj_updateNewScore($hMysql,$id,$score)
     return $res;
 }
 
-function mysql_res_getAllMCAns($hMysql)
+function mysql_res_getAnswers($hMysql,$name)
 {
-    $res=mysql_get($hMysql,"multipleChoice","id,answer","1=1");
+    $res=mysql_get($hMysql,$name,"id,answer","1=1");
+    if(!$res)
+    {
+        return 0;
+    }
+    return $res;
+}
+
+function mysql_res_getMultipleChoiceAnswers($hMysql)
+{
+    $res=mysql_res_getAnswers($hMysql,"multipleChoice");
+    if(!$res)
+    {
+        return 0;
+    }
+    return $res;
+}
+
+function mysql_res_getJudgementAnswers($hMysql)
+{
+    $res=mysql_res_getAnswers($hMysql,"judgement");
     if(!$res)
     {
         return 0;
@@ -148,21 +184,25 @@ function mysql_obj_setPassword($hMysql,$id,$newPassword)
 
 function mysql_file_exportXls($hMysql,$index) //$index 为系号
 {
-    $query="select * from account where id regexp "."'^0*".$index."[0-9A-B]15|16[0-9]{3}$'"." into outfile '/var/lib/mysql-files/".$index.".xls';";
+    $query="select * from account where id ".mysql_regexp($index)." into outfile '/var/lib/mysql-files/".$index.".xls';";
     $hMysql->query($query);
 }
 
-function mysql_bool_validateTeacher($hMysql,$id)
+function mysql_obj_count($hMysql,$index)
 {
-    $res=mysql_obj_getAccountById($hMysql,$id);
-    if(!$res)
-    {
-        return false;
-    }
-    elseif ($res->admin!=1)
-    {
-        return false;
-    }
-    return true;
+    $res=mysql_obj_get($hMysql,"account","count(*)","id ".mysql_regexp($index));
+    return $res;
+}
+
+function mysql_obj_Ncount($hMysql,$index)
+{
+    $res=mysql_obj_get($hMysql,"account","count(*)","id ".mysql_regexp($index)." and score!=-1 ");
+    return $res;
+}
+
+function mysql_obj_calculateAverageScore($hMyql,$index)
+{
+    $res=mysql_obj_get($hMyql,"account","avg(score)","score!=-1 and id ".mysql_regexp($index));
+    return $res;
 }
 ?>

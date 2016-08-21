@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
 function getPaper($index)
 {
 	$count=39;
-	$lName="multipleChoiceList";
+	$lName="paperList";
 	try
 	{
 		$redis_db=redis_h_connect();

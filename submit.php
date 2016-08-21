@@ -27,9 +27,18 @@ function submit($hMysql,$hRedis,$id,$req)
 	{
 		$score=0;
 		$req_obj=json_decode($req);
-		foreach ($req_obj->answer as $itAnswer)
+		$multipleChoiceAns=$req_obj->multipleChoiceAnswer;
+		foreach ($multipleChoiceAns as $itAnswer)
 		{
-			if(redis_json_getListAns($hRedis,$itAnswer->id)==chr($itAnswer->choice+97))
+			if(redis_str_getAnswer($hRedis,"multipleChoiceAnswerList",$itAnswer->id)==chr($itAnswer->choice+97))
+			{
+				$score+=5;
+			}
+		}
+		$judgementAns=$req_obj->judgementAnswer;
+		foreach ($judgementAns as $itAnswer)
+		{
+			if(redis_str_getAnswer($hRedis,"judgementAnswerList",$itAnswer->id)==$itAnswer->choice)
 			{
 				$score+=5;
 			}

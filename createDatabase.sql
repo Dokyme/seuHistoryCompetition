@@ -38,8 +38,8 @@ create table multipleChoice #创建选择题表
 create table judgement #创建判断题表
 (
     id int unsigned not null,
-    description varchar(200) not null,
-    answer bit not null, #布尔型，1为对，0为错
+    question_description varchar(200) not null,
+    answer char(2) not null, #布尔型，1为对，0为错
     primary key(id)
 );
 

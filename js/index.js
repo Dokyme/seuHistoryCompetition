@@ -97,30 +97,55 @@ function redraw (res)
     }
     if (right_t === '1')
     {
-        document.getElementById('000').removeChild(document.getElementById('sign'))
-        document.getElementById('readnotice_welcome').innerHTML = '<h1>' + res.name + ' 老师你好！欢迎来到东南大学校史知识竞赛管理系统！</h1>'
-        document.getElementById('readnotice_title').innerHTML = '<h1>注意事项</h1>'
-        document.getElementById('readnotice_contain1').innerHTML = '<p>注意事项1</p>'
-        document.getElementById('readnotice_contain2').innerHTML = '<p>注意事项2</p>'
-        document.getElementById('startbutton').innerHTML = '<img src="images/005.gif" width="288" height="50" style="cursor:pointer;" onclick="register()">'
-        document.getElementById('downloadbutton').innerHTML = '<img src="images/011.gif" width="288" height="50" style="cursor:pointer;" onclick="downloadXls()">'
-        document.getElementById('exitbutton').innerHTML = '<img src="images/012.gif" width="288" height="50" style="cursor:pointer;" onclick="logout()">'
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {
+          xmlhttp = new XMLHttpRequest()
+        }
+        else
+        {
+          xmlhttp = new ActiveXObject('Microsoft.XMLHTTP')
+        }
+        xmlhttp.open('POST', 'calculate.php')
+        xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xmlhttp.send('index='+getIndex())
+        xmlhttp.onreadystatechange = function ()
+        {
+            if ((xmlhttp.readyState === 4) && (xmlhttp.status === 200))
+            {
+                var res=JSON.parse(xmlhttp.responseText)
+                if (res.right === '-1')
+                {
+                    alert('error')
+                }
+                else
+                {
+                    var info=res;
+                    document.getElementById('000').removeChild(document.getElementById('sign'))
+                    document.getElementById('readnotice_welcome').innerHTML = '<h1>' + res.name + ' 老师你好！欢迎来到东南大学校史知识竞赛管理系统！</h1>'
+                    document.getElementById('readnotice_title').innerHTML = '<h1>注意事项'+info.count+info.countW+info.average+'</h1>'
+                    document.getElementById('readnotice_contain1').innerHTML = '<p>注意事项1</p>'
+                    document.getElementById('readnotice_contain2').innerHTML = '<p>注意事项2</p>'
+                    document.getElementById('startbutton').innerHTML = '<img src="images/005.gif" width="288" height="50" style="cursor:pointer;" onclick="register()">'
+                    document.getElementById('downloadbutton').innerHTML = '<img src="images/011.gif" width="288" height="50" style="cursor:pointer;" onclick="downloadXls()">'
+                    document.getElementById('exitbutton').innerHTML = '<img src="images/012.gif" width="288" height="50" style="cursor:pointer;" onclick="logout()">'
+                }
+            }
+        }
+
         return true
     }
 }
 
 function downloadXls()
 {
-    var id=getCookie('id')
-    var re=new RegExp("^([0-9]{1,2})0{6}$")
-    var index=re.exec(id)
         var xmlhttp
         if (window.XMLHttpRequest) {
           xmlhttp = new XMLHttpRequest()
         } else {
           xmlhttp = new ActiveXObject('Microsoft.XMLHTTP')
         }
-        var params="index="+index[1];
+        var params="index="+getIndex();
         xmlhttp.open('POST', 'downloadXls.php')
         xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
         xmlhttp.send(params)
@@ -137,6 +162,14 @@ function downloadXls()
                 window.location.href=res.dir;
             }
         }
+}
+
+function getIndex()
+{
+    var id=getCookie('id')
+    var re=new RegExp("^([0-9]{1,2})0{6}$")
+    var index=re.exec(id)
+    return index[1];
 }
 
 function register () {
