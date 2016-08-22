@@ -2,9 +2,9 @@
 
 session_start();
 
+include 'lib/redis_method.php';
+include 'lib/utils.php';
 header("Content-Type:application/json;charset=utf-8");
-include 'redis_method.php';
-include 'utils.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "GET")
 {
@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
 		return 0;
 	}
 	$IP=getIP();
-	return getPaper(ip2long($IP)%pow(10,2)%40+time()%1000%40); //讲ｉｐ地址转换位ｌｏｎｇ，取最后两位并对试卷总数取模，加上时间戳（秒数）的最后三位对试卷总数取模，得到试卷ｉｄ。
+	return getPaper((ip2long($IP)%pow(10,2)%40+time()%1000)%40); //讲ｉｐ地址转换位ｌｏｎｇ，取最后两位并对试卷总数取模，加上时间戳（秒数）的最后三位对试卷总数取模，得到试卷ｉｄ。
 }
 
 function getPaper($index)
@@ -29,7 +29,7 @@ function getPaper($index)
 	}
 	catch(Exception $e)
 	{
-		echo '{"error":1}';
+		echo '{"error":1,"msg":"未知的错误。"}';
 		error_log($e->getMessage());
 		exit;
 	}

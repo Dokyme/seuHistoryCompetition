@@ -3,9 +3,9 @@
 session_start();
 
 header("Content-Type:application/json;charset=utf-8");
-include "mysql_method.php";
-include "redis_method.php";
-include "utils.php";
+include "lib/mysql_method.php";
+include "lib/redis_method.php";
+include "lib/utils.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -44,9 +44,9 @@ function submit($hMysql,$hRedis,$id,$req)
 			}
 		}
 		$res_obj=mysql_obj_updateNewScore($hMysql,$id,$score);
-		if($res_obj==-1)
+		if(!$res_obj)
 		{
-			echo '{"error":1}';
+			echo '{"error":1,"msg":"未知的错误。"}';
 			return 0;
 		}
 		echo '{"score":"'.$res_obj->score.'","error":0}';
@@ -54,7 +54,7 @@ function submit($hMysql,$hRedis,$id,$req)
 	}
 	catch(Exception $e)
 	{
-		echo '{"error":1}';
+		echo '{"error":1,"msg":"未知的错误。"}';
 		error_log($e->getMessage());
 		exit;
 	}

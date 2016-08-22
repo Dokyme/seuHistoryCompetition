@@ -122,7 +122,7 @@ function redraw (res)
                 {
                     var info=res;
                     document.getElementById('000').removeChild(document.getElementById('sign'))
-                    document.getElementById('readnotice_welcome').innerHTML = '<h1>' + res.name + ' 老师你好！欢迎来到东南大学校史知识竞赛管理系统！</h1>'
+                    document.getElementById('readnotice_welcome').innerHTML = '<h1>' + getCookie('name') + ' 老师你好！欢迎来到东南大学校史知识竞赛管理系统！</h1>'
                     document.getElementById('readnotice_title').innerHTML = '<h1>注意事项'+info.count+info.countW+info.average+'</h1>'
                     document.getElementById('readnotice_contain1').innerHTML = '<p>注意事项1</p>'
                     document.getElementById('readnotice_contain2').innerHTML = '<p>注意事项2</p>'

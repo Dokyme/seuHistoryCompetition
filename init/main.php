@@ -1,8 +1,8 @@
 <?php
 
 include 'genPap.php';
-include 'redis_method.php';
-include 'mysql_method.php';
+include '../lib/redis_method.php';
+include '../lib/mysql_method.php';
 
 $multipleChoiceListName="multipleChoiceList";
 $multipleChoiceAnswerListName="multipleChoiceAnswerList";
@@ -30,10 +30,10 @@ try
 {
     $mysql_db=mysql_h_connect('guest');
     $redis_db=redis_h_connect();
-    $multipleChoiceAnswers=mysql_res_getMultipleChoiceAnswers($mysql_db);
-    $judgementAnswers=mysql_res_getJudgementAnswers($mysql_db);
-    $multipleChoicePaperArray=generatePaperArray($multipleChoiceAmount,$n,$piece,20);
-    $judgementPaperArray=generatePaperArray($judgementAmount,$n,$piece,10);
+    $multipleChoiceAnswers=mysql_arr_getMultipleChoiceAnswers($mysql_db); //Array
+    $judgementAnswers=mysql_arr_getJudgementAnswers($mysql_db); //Array
+    $multipleChoicePaperArray=generatePaperArray($multipleChoiceAmount,$n,$piece,20); //nx20 Array
+    $judgementPaperArray=generatePaperArray($judgementAmount,$n,$piece,10); //nx10 Array
 }
 catch(Exception $e)
 {
@@ -63,14 +63,15 @@ for($i=0;$i<$n;$i++)
     redis_insertListElement($redis_db,$listName,json_encode($obj));
 }
 
-while($row=$multipleChoiceAnswers->fetch_object())
+
+foreach ($multipleChoiceAnswers as $key => $value)
 {
-    redis_insertListElement($redis_db,$multipleChoiceAnswerListName,$row->answer);
+    redis_insertListElement($redis_db,$multipleChoiceAnswerListName,$value);
 }
 
-while ($row=$judgementAnswers->fetch_object())
+foreach ($judgementAnswers as $key => $value)
 {
-    redis_insertListElement($redis_db,$judgementAnswerListName,$row->answer);
+    redis_insertListElement($redis_db,$judgementAnswerListName,$value);
 }
 
 ?>

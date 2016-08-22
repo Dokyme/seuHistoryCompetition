@@ -3,14 +3,14 @@
 session_start();
 
 
-include "mysql_method.php";
-include "utils.php";
+include "lib/mysql_method.php";
+include "lib/utils.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
 	if(!validateAuth())
 	{
-		echo '{"error":1}';
+		echo '{"error":1,"msg":"权限错误。"}';
 		return 0;
 	}
 	if($_SESSION["right"]!=1)
@@ -32,7 +32,7 @@ function register($hMysql,$req)
         if(!$oldAccount_obj) //如果该ｉｄ不存在，则注册一个新的学生账号。
         {
             $res=mysql_obj_registerAccount($hMysql,$req_obj->id,$req_obj->cardNum,$req_obj->password,$req_obj->name);
-            if($res==-1)
+            if(!$res)
             {
                 echo '{"error":1,"msg":"未知的错误，请重试。"}';
                 return 0;
@@ -58,7 +58,8 @@ function register($hMysql,$req)
             echo '{"error":1,"msg":"学号和一卡通号不匹配，请重试。"}';
             return 0;
         }
-    } catch (Exception $e)
+    }
+	catch (Exception $e)
     {
         echo '{"error":1,"msg":"未知的错误，请重试。"}';
         error_log($e->getMessage());

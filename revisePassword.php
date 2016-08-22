@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-include "mysql_method.php";
-include "utils.php";
+include "lib/mysql_method.php";
+include "lib/utils.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -34,7 +34,7 @@ function revisePassword($hMysql,$id,$req)
             return 0;
         }
         $res=mysql_obj_setPassword($hMysql,$id,$req_obj->newPassword);
-        if($res==-1)
+        if(!$res)
         {
             echo '{"error":1,"msg":"未知的错误，请重试。"}';
 			return 0;

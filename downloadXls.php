@@ -2,8 +2,8 @@
 
 session_start();
 
-include 'utils.php';
-include 'mysql_method.php';
+include 'lib/utils.php';
+include 'lib/mysql_method.php';
 define('SOURCE_DIR', '/var/lib/mysql-files/');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
@@ -30,13 +30,13 @@ function download($hMysql,$index)
     $absDir=dirname(__FILE__)."/".$tempDir;
     if(!copy(SOURCE_DIR.$index.".xls",$absDir))
     {
-        echo SOURCE_DIR.$index.".xls"."|".$absDir;
-        echo '{"error":1,"msg":"未知错误，请重试1"}';
+        //echo SOURCE_DIR.$index.".xls"."|".$absDir;
+        echo '{"error":1,"msg":"未知错误，请重试"}';
         return 0;
     }
     if(!unlink(SOURCE_DIR.$index.".xls"))
     {
-        echo '{"error":1,"msg":"未知错误，请重试2"}';
+        echo '{"error":1,"msg":"未知错误，请重试"}';
         return 0;
     }
     echo '{"error":0,"dir":"'.$tempDir.'"}';

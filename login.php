@@ -3,8 +3,8 @@
 session_start();
 
 header("Content-Type:application/json;charset=utf-8");
-include 'mysql_method.php';
-include 'redis_method.php';
+include 'lib/mysql_method.php';
+include 'lib/redis_method.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -59,16 +59,12 @@ function login($hMysql,$id,$pw)
 		setCookie("auth",$md5Str,time()+2700); //ｃｏｏｋｉｅｓ中包含一个代表登陆状态的ａｕｔｈ字符串
 		setCookie("id",$id,time()+2700);
 		setCookie("right",$objAccount->admin,time()+2700);
-		if($_SESSION["right"]==1)
-		{
-
-		}
 		echo '{"name":"'.$objAccount->name.'","ID":"'.$objAccount->id.'","right":"'.$objAccount->admin.'","score":"'.$objAccount->score.'"}';
 		return 1;
 	}
 	catch(Exception $e)
 	{
-		echo '{"right":"-1"}';
+		echo '{"right":"-1","msg":"未知的错误。"}';
 		error_log($e->getMessage());
     	exit;
 	}
