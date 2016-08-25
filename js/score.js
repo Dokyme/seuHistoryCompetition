@@ -8,7 +8,7 @@ window.onload = function()
     var right_t=getCookie('right');
     if(auth_t==null||id_t==null)
     {
-        alert("error")
+        alert("权限错误，请重新登陆")
         logout();
     }
     else if (right_t==1)
@@ -36,13 +36,13 @@ window.onload = function()
                 var res = JSON.parse(xmlhttp.responseText);
                 if(res.error==1) //如果查分意外失败
                 {
-                    alert("error");
+                    alert(res.msg);
                     logout()
                 }
                 else if(res.score==-1)
                 {
                     alert("您尚未答题");
-                    logout()
+                    window.location.href='answersheet.html'
                 }
                 else
                 {

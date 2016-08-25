@@ -28,15 +28,20 @@ function download($hMysql,$index)
     mysql_file_exportXls($hMysql,$index);
     $tempDir="temp/".md5($index.time()).".xls";
     $absDir=dirname(__FILE__)."/".$tempDir;
-    if(!copy(SOURCE_DIR.$index.".xls",$absDir))
+    if(!copy(SOURCE_DIR."tp".$index.".xls",$absDir))
     {
         //echo SOURCE_DIR.$index.".xls"."|".$absDir;
-        echo '{"error":1,"msg":"未知错误，请重试"}';
+        echo '{"error":1,"msg":"未知错误，请重试1"}';
         return 0;
     }
     if(!unlink(SOURCE_DIR.$index.".xls"))
     {
-        echo '{"error":1,"msg":"未知错误，请重试"}';
+        echo '{"error":1,"msg":"未知错误，请重试2"}';
+        return 0;
+    }
+    if(!unlink(SOURCE_DIR."tp".$index.".xls"))
+    {
+        echo '{"error":1,"msg":"未知错误，请重试3"}';
         return 0;
     }
     echo '{"error":0,"dir":"'.$tempDir.'"}';

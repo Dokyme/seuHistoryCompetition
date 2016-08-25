@@ -38,6 +38,12 @@ function redis_str_getAnswer($hRedis,$lName,$id)
     return $res;
 }
 
+function redis_json_getAnswerList($hRedis,$id)
+{
+    $res=redis_json_getList($hRedis,"paperAnswerList",$id);
+    return $res;
+}
+
 function redis_json_getListAns($hRedis,$id)
 {
     $res=redis_json_getList($hRedis,"multipleChoiceAnswerList",$id);
@@ -56,34 +62,6 @@ function redis_deleteList($hRedis,$lName)
         $hRedis->blPop($lName,0);
     }
     return true;
-}
-
-function redis_bool_setHash($hRedis,$key,$hashKey,$value)
-{
-    $res=$hRedis->hSet($key,$hashKey,$value);
-    return (bool)$res; //当该 hashKey　存在时，或者操作失败时，返回 false
-}
-
-function redis_str_getHash($hRedis,$key,$hashKey)
-{
-    $res=$hRedis->hGet($key,$hashKey);
-    return $res;
-}
-
-function redis_bool_existHash($hRedis,$key,$hashKey)
-{
-    $res=$hRedis->hExists($key,$hashKey);
-    return $res;
-}
-
-function redis_bool_deleteHash($hRedis,$key,$hashKey)
-{
-    $res=$hRedis->hDel($key,$hashKey);
-    if($res==0)
-    {
-        return true;
-    }
-    return (bool)$res;
 }
 
 ?>

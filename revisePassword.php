@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
 	if(!validateAuth())
 	{
-		echo '{"error":1}';
+		echo '{"error":1,"msg":"权限错误"}';
 		return 0;
 	}
 	$hMysql=mysql_h_connect("accounter");

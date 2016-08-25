@@ -11,26 +11,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
 	if(!validateAuth())
 	{
-		echo '{"error":1}';
+		echo '{"error":1,"msg":"权限错误"}';
 		return 0;
 	}
 	$req=$_POST["req"];
 	$id=$_SESSION["id"];
 	$hRedis=redis_h_connect();
 	$hMysql=mysql_h_connect("accounter");
-	return submit($hMysql,$hRedis,$id,$req);
+	$paperIndex=$_SESSION["paperIndex"];
+	return submit($hMysql,$hRedis,$id,$req,$paperIndex);
 }
 
-function submit($hMysql,$hRedis,$id,$req)
+function submit($hMysql,$hRedis,$id,$req,$paperIndex)
 {
 	try
 	{
 		$score=0;
 		$req_obj=json_decode($req);
 		$multipleChoiceAns=$req_obj->multipleChoiceAnswer;
+		$ansListArr=object_array(json_decode(redis_json_getAnswerList($hRedis,$paperIndex)));
 		foreach ($multipleChoiceAns as $itAnswer)
 		{
-			if(redis_str_getAnswer($hRedis,"multipleChoiceAnswerList",$itAnswer->id)==chr($itAnswer->choice+97))
+			$pid=($itAnswer->id);
+			if($ansListArr["multipleChoiceAnswer"][$pid]==chr($itAnswer->choice+97))
 			{
 				$score+=5;
 			}
@@ -38,7 +41,8 @@ function submit($hMysql,$hRedis,$id,$req)
 		$judgementAns=$req_obj->judgementAnswer;
 		foreach ($judgementAns as $itAnswer)
 		{
-			if(redis_str_getAnswer($hRedis,"judgementAnswerList",$itAnswer->id)==$itAnswer->choice)
+			$pid=($itAnswer->id);
+			if($ansListArr["judgementAnswer"][$pid]==chr($itAnswer->choice+97))
 			{
 				$score+=5;
 			}

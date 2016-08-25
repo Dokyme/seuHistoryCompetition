@@ -85,7 +85,7 @@ function register_new_member()
 			if(res.error==0)
 			{
 				alert("操作成功，学号："+res.id+"\n姓名："+res.name+"\n一卡通号："+res.cardNum+"\n密码："+res.password+"\n")
-				window.location.href="index.html?ran=" + Math.random();
+				window.location.href="answersheet.html";
 			}
 			if(res.error==1)
 			{

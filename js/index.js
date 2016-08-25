@@ -9,10 +9,6 @@ window.onload = function ()
     {
         clean_all_Cookie();
     }
-    else //如果ｃｏｏｋｉｅｓ完整
-    {
-        redraw({id:id_t,right:right_t,score:score_t,name:name_t});
-    }
 }
 
 function login ()
@@ -62,78 +58,10 @@ function request_for_login (ID_t, password_t)
             {
                 setCookie("name",res.name)
                 setCookie("score",res.score)
-                redraw(res)
+                window.location.href="answersheet.html";
                 return true;
             }
         }
-    }
-}
-
-function start ()
-{
-    window.location.href = 'answersheet.html?ran=' + Math.random()
-}
-
-function redraw (res)
-{
-    var right_t = res.right
-    var score_t = res.score
-    if (right_t === '0' && score_t === '-1')
-    {
-        document.getElementById('000').removeChild(document.getElementById('sign'))
-        document.getElementById('readnotice_welcome').innerHTML = '<h1>' + res.name + ' 同学你好！欢迎来到东南大学校史知识竞赛！</h1>'
-        document.getElementById('readnotice_title').innerHTML = '<h1>注意事项</h1>'
-        document.getElementById('readnotice_contain1').innerHTML = '<p>注意事项1</p>'
-        document.getElementById('readnotice_contain2').innerHTML = '<p>注意事项2</p>'
-        document.getElementById('startbutton').innerHTML = '<img src="images/006.gif" width="288" height="50" style="cursor:pointer;" onclick="start()">'
-        document.getElementById('downloadbutton').innerHTML = '<img src="images/010.gif" width="288" height="50" style="cursor:pointer;" onclick="register()">'
-        document.getElementById('exitbutton').innerHTML = '<img src="images/012.gif" width="288" height="50" style="cursor:pointer;" onclick="logout()">'
-        return true;
-    }
-    if (right_t === '0' && score_t !== '-1')
-    {
-        window.location.href = 'score.html'
-        return true
-    }
-    if (right_t === '1')
-    {
-        var xmlhttp;
-        if (window.XMLHttpRequest)
-        {
-          xmlhttp = new XMLHttpRequest()
-        }
-        else
-        {
-          xmlhttp = new ActiveXObject('Microsoft.XMLHTTP')
-        }
-        xmlhttp.open('POST', 'calculate.php')
-        xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-        xmlhttp.send('index='+getIndex())
-        xmlhttp.onreadystatechange = function ()
-        {
-            if ((xmlhttp.readyState === 4) && (xmlhttp.status === 200))
-            {
-                var res=JSON.parse(xmlhttp.responseText)
-                if (res.right === '-1')
-                {
-                    alert('error')
-                }
-                else
-                {
-                    var info=res;
-                    document.getElementById('000').removeChild(document.getElementById('sign'))
-                    document.getElementById('readnotice_welcome').innerHTML = '<h1>' + getCookie('name') + ' 老师你好！欢迎来到东南大学校史知识竞赛管理系统！</h1>'
-                    document.getElementById('readnotice_title').innerHTML = '<h1>注意事项'+info.count+info.countW+info.average+'</h1>'
-                    document.getElementById('readnotice_contain1').innerHTML = '<p>注意事项1</p>'
-                    document.getElementById('readnotice_contain2').innerHTML = '<p>注意事项2</p>'
-                    document.getElementById('startbutton').innerHTML = '<img src="images/005.gif" width="288" height="50" style="cursor:pointer;" onclick="register()">'
-                    document.getElementById('downloadbutton').innerHTML = '<img src="images/011.gif" width="288" height="50" style="cursor:pointer;" onclick="downloadXls()">'
-                    document.getElementById('exitbutton').innerHTML = '<img src="images/012.gif" width="288" height="50" style="cursor:pointer;" onclick="logout()">'
-                }
-            }
-        }
-
-        return true
     }
 }
 
@@ -156,20 +84,12 @@ function downloadXls()
                 var res = JSON.parse(xmlhttp.responseText)
                 if(res.error==1)
                 {
-                    alert("error")
+                    alert(res.msg)
                     return;
                 }
                 window.location.href=res.dir;
             }
         }
-}
-
-function getIndex()
-{
-    var id=getCookie('id')
-    var re=new RegExp("^([0-9]{1,2})0{6}$")
-    var index=re.exec(id)
-    return index[1];
 }
 
 function register () {

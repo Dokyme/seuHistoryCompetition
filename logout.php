@@ -11,6 +11,7 @@ function logout()
     unset($_SESSION['auth']);
     unset($_SESSION['id']);
     unset($_SESSION['right']);
+    unset($_SESSION['paperIndex']);
     session_destroy();
 }
 

@@ -90,21 +90,22 @@ function mysql_obj_setPassword($hMysql,$id,$newPassword) //Limit 1
     return mysql_obj_getAccountById($hMysql,$id);
 }
 
-function mysql_arr_getAnswers($hMysql,$name) //Return an array.
+function mysql_obj_getAnswer($hMysql,$name,$id) //Limit 1
 {
-    $res=$hMysql->getValue($name,'answer',null);
+    $field=Array('id','answer');
+    $res=mysql_obj_getById($hMysql,$name,$field,$id);
     return $res;
 }
 
-function mysql_arr_getMultipleChoiceAnswers($hMysql) //Return an array
+function mysql_obj_getMultipleChoiceAnswer($hMysql,$id) //Limit 1
 {
-    $res=mysql_arr_getAnswers($hMysql,"multipleChoice");
+    $res=mysql_obj_getAnswer($hMysql,"multipleChoice",$id);
     return $res;
 }
 
-function mysql_arr_getJudgementAnswers($hMysql) //Return an array
+function mysql_obj_getJudgementAnswer($hMysql,$id) //Limit 1
 {
-    $res=mysql_arr_getAnswers($hMysql,"judgement");
+    $res=mysql_obj_getAnswer($hMysql,"judgement",$id);
     return $res;
 }
 
@@ -113,10 +114,7 @@ function mysql_file_exportXls($hMysql,$index) //$index 为系号
     $res=$hMysql->rawQuery("select * from account where id ".mysql_regexp($index)." into outfile '/var/lib/mysql-files/".$index.".xls';");
     //$query="select * from account where id ".mysql_regexp($index)." into outfile '/var/lib/mysql-files/".$index.".xls';";
     //$hMysql->query($query);
-    if(!$res)
-    {
-        return false;
-    }
+    exec("iconv -f utf8 -t gbk -o /var/lib/mysql-files/tp".$index.".xls /var/lib/mysql-files/".$index.".xls");
     return (object)$res;
 }
 

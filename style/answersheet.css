@@ -48,3 +48,45 @@ div#submitter {
     bottom: 7%;
     right: 0%;
 }
+
+div#readnotice_welcome {
+    position: absolute;
+    top: 160px;
+    left: 25%;
+}
+
+div#readnotice_title {
+    position: absolute;
+    top: 260px;
+    left: 45%;
+}
+
+div#readnotice_contain1 {
+    position: absolute;
+    top: 400px;
+    left: 30%;
+}
+
+div#readnotice_contain2 {
+    position: absolute;
+    top: 450px;
+    left: 30%;
+}
+
+div#startbutton {
+    position: absolute;
+    top: 650px;
+    left: 40%;
+}
+
+div#downloadbutton {
+    position: absolute;
+    top: 720px;
+    left: 40%;
+}
+
+div#exitbutton {
+    position: absolute;
+    top: 790px;
+    left: 40%;
+}
