@@ -6,16 +6,16 @@ include '../lib/mysql_method.php';
 
 $multipleChoiceListName="multipleChoiceList";
 $multipleChoiceAnswerListName="multipleChoiceAnswerList";
-$multipleChoiceAmount=200;
+$multipleChoiceAmount=180;
 $judgementListName="judgementList";
 $judgementAnswerListName="judgementAnswerList";
-$judgementAmount=100;
+$judgementAmount=40;
 
 $listName="paperList";
 $AnswerListName="paperAnswerList";
 
 $n=40;
-$piece=100;
+$piece=20;
 
 $mysql_db=null;
 $redis_db=null;

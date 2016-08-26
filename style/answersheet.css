@@ -24,13 +24,21 @@ form{
 	font-size:180%;
 	height:200px;
 	}
+
 p.question_description{
 	height:20px;
 	}
+
 input.question_choice{
 	height:18px;
 	width:18px;
 	}
+
+div#counter{
+    position: fixed;
+    buttom:10%;
+    right:4%;
+}
 div#timeri {
     position: fixed;
     bottom: 0%;

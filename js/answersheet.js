@@ -179,9 +179,9 @@ function redraw (res)
                     var info=res;
                     //document.getElementById('000').removeChild(document.getElementById('sign'))
                     document.getElementById('readnotice_welcome').innerHTML = '<h1>' + getCookie('name') + ' 老师你好！欢迎来到东南大学校史知识竞赛管理系统！</h1>'
-                    document.getElementById('readnotice_title').innerHTML = '<h1>注意事项'+info.count+info.countW+info.average+'</h1>'
-                    document.getElementById('readnotice_contain1').innerHTML = '<p>注意事项1</p>'
-                    document.getElementById('readnotice_contain2').innerHTML = '<p>注意事项2</p>'
+                    document.getElementById('readnotice_title').innerHTML = '<h1>年级总人数:'+info.count+'</h1>'
+                    document.getElementById('readnotice_contain1').innerHTML = '<p>已答题人数:'+info.countW+'</p>'
+                    document.getElementById('readnotice_contain2').innerHTML = '<p>已答题均分:'+info.average+'</p>'
                     document.getElementById('startbutton').innerHTML = '<img src="images/005.gif" width="288" height="50" style="cursor:pointer;" onclick="register()">'
                     document.getElementById('downloadbutton').innerHTML = '<img src="images/011.gif" width="288" height="50" style="cursor:pointer;" onclick="downloadXls()">'
                     document.getElementById('exitbutton').innerHTML = '<img src="images/012.gif" width="288" height="50" style="cursor:pointer;" onclick="logout()">'

@@ -26,11 +26,11 @@ create table account #创建用户表
 create table multipleChoice #创建选择题表
 (
     id int not null,
-    question_description varchar(200) not null,
-    choice_a char(100) not null,
-    choice_b char(100) not null,
-    choice_c char(100) not null,
-    choice_d char(100) not null,
+    question_description text not null,
+    choice_a text not null,
+    choice_b text not null,
+    choice_c text not null,
+    choice_d text not null,
     answer char(2) not null,
     primary key(id)
 );
@@ -38,7 +38,7 @@ create table multipleChoice #创建选择题表
 create table judgement #创建判断题表
 (
     id int unsigned not null,
-    question_description varchar(200) not null,
+    question_description text not null,
     answer char(2) not null, #布尔型，1为对，0为错
     primary key(id)
 );
