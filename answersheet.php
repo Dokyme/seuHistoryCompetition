@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
 		return 0;
 	}
 	$IP=getIP();
-	$index=(ip2long($IP)%pow(10,2)%40+time()%1000)%40;
+	$index=(ip2long($IP)%pow(10,2)%40+time()*1000)%40;
 	$_SESSION["paperIndex"]=$index;
 	return getPaper($index); //讲ｉｐ地址转换位ｌｏｎｇ，取最后两位并对试卷总数取模，加上时间戳（秒数）的最后三位对试卷总数取模，得到试卷ｉｄ。
 }
